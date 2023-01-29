@@ -1,0 +1,26 @@
+[package]
+name = "twitter-admin"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.66"
+authors = ["Alexander Korolev <alexander.korolev.germany@gmail.com>"]
+publish = false
+
+[dependencies]
+thiserror = "1"
+log = "0.4"
+env_logger = "0.10.0"
+dotenv = "0.15"
+serde = { version = "1", features = ["derive"] }
+clap = { version = "4.0", features = ["derive", "env"] }
+axum = { version = "0.6.1", features = ["headers"] }
+axum-server = { version = "0.4", features = ["tls-rustls"] }
+async-trait = "0.1"
+tokio = { version = "1.23", features = ["full"] }
+reqwest = { version = "0.11", default-features = false, features = [
+    "rustls-tls",
+    "json",
+] }
+oauth2 = "4.2"
+headers = "0.3"
+uuid = { version = "1.2", features = ["v4"] }

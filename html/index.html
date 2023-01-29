@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Twitter Admin</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Twitter Admin</h1>
+        <main class="block">
+          <div id="unauthorized" class="is-hidden">
+            <p class="subtitle">Please authorize to get token for API calls.</p>
+            <a href="/auth/twitter">Login to Twitter</a>
+          </div>
+          <div id="authorized" class="is-hidden">
+            <div class="field">
+              <p class="subtitle">You are now authorized and can use token below for API calls.</p>
+              <label for="token" class="label">Token:</label>
+              <div class="control has-icons-right">
+                <input id="token" class="input" readonly type="text" />
+                <span
+                  class="icon is-clickable is-right has-text-dark is-hovered"
+                  onclick="copyToken()"
+                >
+                  <i class="fa fa-copy"></i>
+                </span>
+              </div>
+            </div>
+            <a class="link" href="/logout">Logout from Twitter</a>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <script>
+      async function load() {
+        let response = await fetch("/user");
+        if (response.status != 200) {
+          return {};
+        }
+        return {
+          authorized: true,
+          user: await response.json(),
+        };
+      }
+
+      async function copyToken() {
+        alert("hello");
+        await navigator.clipboard.writeText(token.value);
+      }
+
+      load().then((res) => {
+        if (res.authorized) {
+          token.value = res.user?.token?.access_token;
+          authorized.classList -= "is-hidden";
+        } else {
+          unauthorized.classList -= "is-hidden";
+        }
+      });
+    </script>
+  </body>
+</html>
