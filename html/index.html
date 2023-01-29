@@ -58,16 +58,20 @@
       }
 
       async function copyToken() {
-        alert("hello");
+        alert("Token copied to clipboard.");
         await navigator.clipboard.writeText(token.value);
+      }
+
+      function show(element) {
+        element.classList -= "is-hidden";
       }
 
       load().then((res) => {
         if (res.authorized) {
           token.value = res.user?.token?.access_token;
-          authorized.classList -= "is-hidden";
+          show(authorized);
         } else {
-          unauthorized.classList -= "is-hidden";
+          show(unauthorized);
         }
       });
     </script>
