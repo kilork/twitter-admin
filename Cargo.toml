@@ -5,6 +5,7 @@ edition = "2021"
 rust-version = "1.66"
 authors = ["Alexander Korolev <alexander.korolev.germany@gmail.com>"]
 publish = false
+license = "Unlicense OR MIT"
 
 [dependencies]
 thiserror = "1"
